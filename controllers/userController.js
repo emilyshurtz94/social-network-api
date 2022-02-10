@@ -22,7 +22,7 @@ module.exports ={
     //post
     createUser(req,res){
         User.create(req.body)
-        .then((dbUserData) => res.json(dbUserData))
+        .then((user) => res.json(user))
         .catch((err) => res.status(500).json(err))
     },
     // put
@@ -56,7 +56,7 @@ module.exports ={
         .catch((err) => res.status(500).json(err));
     },
 
-    addUserFriend(req,res){
+    addFriend(req,res){
         User.findOneAndUpdate(
           { _id: req.params.userId },
           { $addToSet: { friend: req.body } },
@@ -69,7 +69,7 @@ module.exports ={
           )
           .catch((err) => res.status(500).json(err));
       },
-      removeUserFriend(req, res) {
+      removeFriend(req, res) {
         User.findOneAndUpdate(
           { _id: req.params.friendId },
           { $pull: { reactions: { friendId: req.params.friendId } } },
@@ -85,10 +85,3 @@ module.exports ={
 }
 
 
-
-
-
-
-// add friends
-
-// delete friends

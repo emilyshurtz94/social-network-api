@@ -58,7 +58,7 @@ module.exports= {
     },
     // delete 
     deleteThought(req,res){
-        Thought.findOneAndRemove({_id: req.params.thoughtsId})
+        Thought.findOneAndRemove({_id: req.params.thoughtId})
         .then((thoughts) =>
         !thought
         ? res.status(404).json({message: 'no thought with this id!'})
@@ -78,7 +78,7 @@ module.exports= {
         .catch((err) => res.status(500).json(err));
     },
     // add reactions
-    addReactionsResponse(req, res) {
+    addReaction(req, res) {
         Reactions.findOneAndUpdate(
           { _id: req.params.reactionId },
           { $addToSet: { thoughts: req.body } },
@@ -92,9 +92,9 @@ module.exports= {
           .catch((err) => res.status(500).json(err));
       },
     // delete reactions
-    removeReactionResponse(req, res) {
+    removeReaction(req, res) {
         Reaction.findOneAndUpdate(
-          { _id: req.params.reactionsId },
+          { _id: req.params.reactionId },
           { $pull: { reactions: { thoughtsId: req.params.thoughtId } } },
           { runValidators: true, new: true }
         )
